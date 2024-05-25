@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Service Plans</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .plans {
+            margin-top: 2em;
+        }
+
+        .plan {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 2em;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .plan:hover {
+            transform: scale(1.05);
+        }
+
+        .plan h2 {
+            color: rgb(255, 0, 0);
+            margin-bottom: 1em;
+        }
+
+        .plan p {
+            font-size: 1em;
+            margin-bottom: 1.5em;
+        }
+
+        .plan ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 2em;
+        }
+
+        .plan ul li {
+            background: #a8e5ca;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 0.5em 0;
+            padding: 0.5em;
+        }
+
+        .plan button {
+            background-color: rgb(255, 0, 0);
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            font-size: 1em;
+            padding: 0.5em 1em;
+            transition: background-color 0.3s;
+        }
+
+        .plan button:hover {
+            background-color: rgb(0, 0, 255);
+        }
+
+        .heading {
+            font-size: 30px;
+            color: rgb(255, 255, 255);
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse bg-info navbar-fixed-top  	d-flex justify-content-between">
+        <div>
+            <a class="navbar-brand heading" href="#" th:href="@{/}">Marketing Service</a>
+        </div>
+        <div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown" sec:authorize="isAuthenticated()">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <span th:text="${#authentication.name}">User</span> <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" th:href="@{/profile}">Profile</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#" th:href="@{/logout}">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </button>
+
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="text-center my-4">
+            <h1>Choose Your Marketing Plan</h1>
+        </header>
+        <section class="plans row">
+            <div class="plan col-md-4 mb-4" data-plan="Basic Plan">
+                <h2>Basic Plan</h2>
+                <p>Perfect for small businesses starting their marketing journey.</p>
+                <ul>
+                    <li>Email Marketing</li>
+                    <li>Social Media Management</li>
+                    <li>Content Creation</li>
+                    <li>Basic Analytics</li>
+					<li>price = 100$</li>
+                </ul>
+                <button class="btn btn-success" data-toggle="modal" data-target="#buyModal">Buy Now</button>
+            </div>
+            <div class="plan col-md-4 mb-4" data-plan="Pro Plan">
+                <h2>Pro Plan</h2>
+                <p>Ideal for growing businesses looking to scale their marketing efforts.</p>
+                <ul>
+                    <li>All Basic Plan features</li>
+                    <li>SEO Optimization</li>
+                    <li>Content Creation</li>
+                    <li>Advanced Analytics</li>
+					<li>price = 300$</li>
+                </ul>
+                <button class="btn btn-success" data-toggle="modal" data-target="#buyModal">Buy Now</button>
+            </div>
+            <div class="plan col-md-4 mb-4" data-plan="Premium Plan">
+                <h2>Premium Plan</h2>
+                <p>The ultimate package for businesses aiming for the top.</p>
+                <ul>
+                    <li>All Pro Plan features</li>
+                    <li>Dedicated Account Manager</li>
+                    <li>Customized Marketing Strategy</li>
+                    <li>Priority Support</li>
+					<li>price = 500$</li>
+                </ul>
+                <button class="btn btn-success" data-toggle="modal" data-target="#buyModal">Buy Now</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="buyModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="buyModalLabel">Plan Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 id="planTitle"></h4>
+                    <p id="planDescription"></p>
+                    <form>
+                        <div class="form-group">
+                            <label for="paymentMethod">Select Payment Method:</label>
+                            <select class="form-control" id="paymentMethod">
+                                <option value="creditCard">Credit Card</option>
+                                <option value="paypal">PayPal</option>
+                                <option value="bankTransfer">Bank Transfer</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle the modal opening and populating it with plan details
+        $('#buyModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var planTitle = button.closest('.plan').data('plan'); // Extract info from data-* attributes
+
+            // Update the modal's content with the plan details
+            var modal = $(this);
+            modal.find('.modal-title').text('Buy ' + planTitle);
+            modal.find('#planTitle').text(planTitle);
+
+            // Update plan description based on the selected plan
+            
+            //modal.find('#planDescription').text(planDescription);
+        });
+    </script>
+
+
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // JavaScript to handle the modal opening and populating it with plan details
+        $('#buyModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var planTitle = button.closest('.plan').data('plan'); // Extract info from data-* attributes
+
+            // Update the modal's content
+            var modal = $(this);
+            modal.find('.modal-title').text('Buy ' + planTitle);
+            modal.find('#planTitle').text(planTitle);
+			
+			var planDescription = '';
+			            switch (planTitle) {
+			                case 'Basic Plan':
+			                    planDescription = 'Perfect for small businesses starting their marketing journey. Includes Email Marketing, Social Media Management, Content Creation, and Basic Analytics.';
+			                    break;
+			                case 'Pro Plan':
+			                    planDescription = 'Ideal for growing businesses looking to scale their marketing efforts. Includes All Basic Plan features plus SEO Optimization, Advanced Analytics, and more.';
+			                    break;
+			                case 'Premium Plan':
+			                    planDescription = 'The ultimate package for businesses aiming for the top.Includes All Pro Plan features plus Dedicated Account Manager, Customized Marketing Strategy, and Priority Support.';
+			                    break;
+			                default:
+			                    planDescription = 'Description of the plan.';
+			            }
+						
+            modal.find('#planDescription').text(planDescription); // Add specific details for each plan here
+        });
+    </script>
+</body>
+
+</html>
