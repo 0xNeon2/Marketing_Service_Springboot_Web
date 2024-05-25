@@ -1,4 +1,3 @@
-Here's a `README.md` file in markdown format:
 
 ```markdown
 # Marketing Service Website
@@ -53,5 +52,3 @@ The Marketing Service Website is a web-based application designed to facilitate 
 
 The Marketing Service Website will streamline the process of purchasing and managing marketing plans for users. This project leverages modern web technologies, including Spring Boot on the backend and a combination of HTML, CSS, JavaScript, and Bootstrap on the frontend, to create a secure, efficient, and user-friendly platform, ensuring a seamless experience for users.
 ```
-
-You can copy and paste this into a `README.md` file in your project repository.
